@@ -1,16 +1,22 @@
 package br.com.luxfacta.facade;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Service
-public class CurrencyFacade {
+import br.com.luxfacta.validator.CurrencyInputValidator;
 
+@Component
+public class CurrencyFacade {
+	@Value("${app.accesskey}")
+	private String accessKey;
+	
 	public double variationOf(LocalDate initialDate, LocalDate finalDate) {
 		try{
 			double initialCotation = getCotationOf(initialDate);
@@ -22,9 +28,10 @@ public class CurrencyFacade {
 	}
 
 	private final double getCotationOf(LocalDate date){
+		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		String uri = "http://apilayer.net/api/historical?access_key=76ebd4dc9b17550237afc631dd3b3e8c&date="+date+"&currencies=EUR&format=1";
+		String uri = "http://apilayer.net/api/historical?access_key="+accessKey+"&date="+date+"&currencies=EUR&format=1";
 		@SuppressWarnings("rawtypes")
 		ResponseEntity<Map> entity = restTemplate.getForEntity(uri, Map.class);
 		if(!entity.getStatusCode().equals(HttpStatus.OK)){
@@ -35,5 +42,18 @@ public class CurrencyFacade {
 		Double cotation = (Double) object.get("USDEUR");
 		
 		return cotation;
+	}
+
+	public Map<String, String> getVariationRespost(String initDate, String endDate, CurrencyInputValidator validator) {
+		LocalDate init = validator.convertDate(initDate);
+		LocalDate end = validator.convertDate(endDate);
+		double variation = variationOf(init, end);
+
+		Map<String,String> r = new HashMap<String,String>();
+		r.put("variation", String.valueOf(variation));
+		r.put("inital-date", initDate);
+		r.put("end-date", endDate);
+		
+		return r;
 	}
 }

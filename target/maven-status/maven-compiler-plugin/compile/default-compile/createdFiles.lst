@@ -1,3 +1,4 @@
 br\com\luxfacta\validator\CurrencyInputValidator.class
-br\com\luxfacta\rest\CurrencyConsumeRest.class
+br\com\luxfacta\rest\CurrencyConsumerRest.class
 br\com\luxfacta\facade\CurrencyFacade.class
+br\com\luxfacta\factory\CurrencyFactory.class

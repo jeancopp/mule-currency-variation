@@ -3,9 +3,9 @@ package br.com.luxfacta.validator;
 import java.time.LocalDate;
 
 import org.joni.exception.ValueException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class CurrencyInputValidator {
 	
 	public void validateDate(String date){

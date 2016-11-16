@@ -8,10 +8,13 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd">
     <http:listener-config name="default-configuration" host="0.0.0.0" port="${port}" doc:name="HTTP Listener Configuration"/>
+    <spring:beans>
+        <spring:bean id="Bean" name="Bean" class="br.com.luxfacta.factory.CurrencyFactory" scope="singleton"/>
+    </spring:beans>
     <flow name="coin-variationFlow">
         <http:listener config-ref="default-configuration" path="/*" doc:name="HTTP"/>
-        <jersey:resources doc:name="REST">
-            <component class="br.com.luxfacta.rest.CurrencyConsumeRest"/>
+        <jersey:resources doc:name="CurrencyConsumer">
+            <component class="br.com.luxfacta.rest.CurrencyConsumerRest"/>
         </jersey:resources>
     </flow>
 </mule>
