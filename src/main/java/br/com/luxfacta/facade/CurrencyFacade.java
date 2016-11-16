@@ -1,4 +1,4 @@
-package br.com.luxfacta.rest;
+package br.com.luxfacta.facade;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -28,9 +28,7 @@ public class CurrencyFacade {
 		if(!entity.getStatusCode().equals(HttpStatus.OK)){
 			throw new RuntimeException("Error on get information");
 		}
-		
 		Map<?, ?> body = entity.getBody();
-		System.out.println(body.get("quotes"));
 		Map<?,?> object = (Map<?,?>)body.get("quotes");
 		Double cotation = (Double) object.get("USDEUR");
 		

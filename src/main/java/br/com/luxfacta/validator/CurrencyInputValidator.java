@@ -1,4 +1,4 @@
-package br.com.luxfacta.rest;
+package br.com.luxfacta.validator;
 
 import java.time.LocalDate;
 
@@ -11,10 +11,10 @@ public class CurrencyInputValidator {
 	public void validateDate(String date){
 		if(!date.matches("\\d{4}-\\d{2}-\\d{2}"))
 			throw new ValueException("Invalid date format");
-		converDate(date);
+		convertDate(date);
 	}
 	
-	public LocalDate converDate(String possibleDate){
+	public LocalDate convertDate(String possibleDate){
 		return LocalDate.parse(possibleDate);
 	}
 	
