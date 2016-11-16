@@ -1,1 +1,3 @@
 br\com\luxfacta\rest\CurrencyConsumeRest.class
+br\com\luxfacta\rest\CurrencyInputValidator.class
+br\com\luxfacta\rest\CurrencyFacade.class
