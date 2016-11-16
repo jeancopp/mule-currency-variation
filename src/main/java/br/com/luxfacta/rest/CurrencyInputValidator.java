@@ -10,9 +10,10 @@ public class CurrencyInputValidator {
 	
 	public void validateDate(String date){
 		if(!date.matches("\\d{4}-\\d{2}-\\d{2}"))
-			throw new ValueException("");
+			throw new ValueException("Invalid date format");
 		converDate(date);
 	}
+	
 	public LocalDate converDate(String possibleDate){
 		return LocalDate.parse(possibleDate);
 	}
